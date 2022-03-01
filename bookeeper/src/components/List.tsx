@@ -1,6 +1,7 @@
 import React from "react"
 import { BsArrowRightCircleFill } from "react-icons/bs"
 import { FaPlusCircle } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
 import "./css/List.css"
 
 interface ListProps {
@@ -20,6 +21,10 @@ interface data {
 }
 
 const List: React.FC<ListProps> = ({ data }) => {
+	const navigate = useNavigate()
+	const handleBookClick = (e: React.MouseEvent) => {
+		navigate(`/book/${e.currentTarget.parentElement!.id}`)
+	}
 	console.log(data)
 	return (
 		<div className="list">
@@ -33,14 +38,11 @@ const List: React.FC<ListProps> = ({ data }) => {
 							alt="book cover"
 						/>
 					)}
-					<BsArrowRightCircleFill className="icons" />
-					<FaPlusCircle
-						id={book.id}
-						onClick={(e: React.MouseEvent) => {
-							console.log(e.currentTarget.parentElement!.id)
-						}}
+					<BsArrowRightCircleFill
+						onClick={handleBookClick}
 						className="icons"
 					/>
+					<FaPlusCircle className="icons" />
 				</div>
 			))}
 		</div>

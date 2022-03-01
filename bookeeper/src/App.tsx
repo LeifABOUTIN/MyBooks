@@ -5,6 +5,7 @@ import Register from "./components/Register"
 import Login from "./components/Login"
 import Header from "./components/Header"
 import Search from "./pages/Search"
+import Book from "./pages/Book"
 
 import "./App.css"
 
@@ -22,6 +23,7 @@ const App: React.FC = ({}) => {
 					/>
 					<Route path="/register" element={<Register />} />
 					<Route path="/search" element={<Search />} />
+					<Route path="/book/:id" element={<Book />} />
 				</Routes>
 			</BrowserRouter>
 		</>

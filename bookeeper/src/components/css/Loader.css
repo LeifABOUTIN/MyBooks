@@ -1,0 +1,55 @@
+.loader {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	outline: 5px solid rgba(255, 255, 255, 0.5);
+	background-color: transparent;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+.loader::before {
+	content: "";
+	position: absolute;
+	height: 400px;
+
+	width: 10%;
+	background: red;
+	color: red;
+	top: -10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	animation: specialRotation 3s 0.1s linear infinite;
+}
+/* .loader::after {
+	content: "bookeeper";
+	font-size: 1rem;
+	font-weight: bold;
+	position: absolute;
+	padding: 0.25rem;
+	height: 100%;
+	width: 100%;
+	background: transparent;
+	color: yellowgreen;
+	top: 0;
+	left: 0;
+	z-index: -100;
+
+	animation: specialRotation 3s linear infinite;
+} */
+@keyframes specialRotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+.loader-container {
+	width: 600px;
+	height: auto;
+	z-index: 100;
+	position: relative;
+}
