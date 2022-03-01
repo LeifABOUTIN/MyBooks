@@ -1,18 +1,23 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { FcCancel, FcCheckmark } from "react-icons/fc"
 import "./css/Login.css"
-type LoginProps = {
-	handleMainLogin: (value: boolean) => void
+
+interface LoginProps {
+	setLogin: (value: boolean) => void
+	login: boolean
 }
-export default function Login({ handleMainLogin }: LoginProps) {
+
+const Login: React.FC<LoginProps> = ({ setLogin }) => {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-	const [passwordConfirmation, setPasswordConfirmation] = useState("")
+	const navigate = useNavigate()
 
-	const handleLogin = (e: React.MouseEvent) => {
+	const handleLogin = (e: React.MouseEvent): void => {
 		e.preventDefault()
-		console.log(username, password, passwordConfirmation)
-		handleMainLogin(true)
+		console.log(username, password)
+		setLogin(true)
+		navigate("/")
 	}
 	return (
 		<div className="login_main">
@@ -51,27 +56,8 @@ export default function Login({ handleMainLogin }: LoginProps) {
 						<FcCheckmark className="icon_input" />
 					)}
 				</div>
-				<div className="input_wrapper">
-					<label htmlFor="pw_confirm">Confirm Password: </label>
-					<input
-						onChange={(e) => setPasswordConfirmation(e.target.value)}
-						value={passwordConfirmation}
-						required
-						type="password"
-						id="pw_confirm"
-					/>
 
-					{!passwordConfirmation ? null : password !==
-					  passwordConfirmation ? (
-						<FcCancel className="icon_input" />
-					) : (
-						<FcCheckmark className="icon_input" />
-					)}
-				</div>
-				{username &&
-				password &&
-				passwordConfirmation &&
-				password === passwordConfirmation ? (
+				{username && password ? (
 					<button onClick={handleLogin} className="submit">
 						LOGIN
 					</button>
@@ -84,3 +70,4 @@ export default function Login({ handleMainLogin }: LoginProps) {
 		</div>
 	)
 }
+export default Login

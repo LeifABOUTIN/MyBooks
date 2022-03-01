@@ -1,0 +1,19 @@
+nav {
+	width: 90%;
+	margin: auto;
+}
+ul {
+	display: flex;
+	gap: 1rem;
+	list-style: none;
+}
+.login-li {
+	margin-left: auto;
+}
+li > a {
+	text-decoration: none;
+	color: black;
+}
+.logout-btn {
+	margin-left: auto;
+}

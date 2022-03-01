@@ -1,0 +1,65 @@
+.list {
+	display: flex;
+	width: 100%;
+	gap: 1.5rem;
+	margin: 5rem 0 0 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.book {
+	position: relative;
+	color: white;
+	width: 25%;
+
+	min-width: fit-content;
+	background: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 1) 0%,
+		rgb(114, 50, 50) 50%,
+		rgb(243, 208, 208) 100%
+	);
+	border-radius: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	padding: 1.25rem;
+}
+.book:hover {
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.book > h3 {
+	margin: 1rem auto;
+	font-family: Roboto, "sans-serif";
+	font-weight: 500;
+}
+.book > img {
+	height: auto;
+	width: 160px;
+
+	margin: auto auto 0 auto;
+}
+.icons {
+	position: absolute;
+	color: black;
+	width: 40px;
+	height: 40px;
+	right: 10px;
+}
+
+.icons:hover {
+	transform: scale(1.25);
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+	color: white;
+}
+.icons:last-child {
+	top: 60%;
+}
+.icons:first-child {
+	top: 40%;
+}
