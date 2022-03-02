@@ -5,6 +5,15 @@
 	margin: 5rem 0 0 1rem;
 	flex-wrap: wrap;
 	justify-content: center;
+	clip-path: inset(0 100% 0 0);
+	transform: translateX(-200px);
+	opacity: 0.2;
+}
+.list.list-loaded{
+	clip-path: inset(0 0 0 0);
+	transform: translateX(0px);
+	transition: all .5s ease-in-out;
+	opacity: 1;
 }
 
 .book {

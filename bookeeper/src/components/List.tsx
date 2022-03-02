@@ -1,4 +1,5 @@
-import React from "react"
+import { listenerCount } from "process"
+import React, { ReactEventHandler, useEffect } from "react"
 import { BsArrowRightCircleFill } from "react-icons/bs"
 import { FaPlusCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
@@ -25,10 +26,23 @@ const List: React.FC<ListProps> = ({ data }) => {
 	const handleBookClick = (e: React.MouseEvent) => {
 		navigate(`/book/${e.currentTarget.parentElement!.id}`)
 	}
+	useEffect(() => {
+		let list = document.querySelector(".list")!
+		list.classList.remove('list-loaded')
+	
+		setTimeout(() => {
+			
+			list.classList.add("list-loaded")
+			
+		},500)
+		
+	}, [data])
+
 	console.log(data)
 	return (
 		<div className="list">
-			{data.map((book: data) => (
+			{ data.map((book: data, index:number) => (
+			
 				<div className="book" id={book.id} key={book.id}>
 					<h3>{book.volumeInfo.title}</h3>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect} from "react"
 import "./css/Search.css"
 import List from "../components/List"
 import LoaderComp from "../components/Loader"
@@ -17,7 +17,17 @@ const Search: React.FC<SearchProps> = ({}) => {
 		search
 	)}+subject:fiction&printType=books&langRestrict=en&filter=ebooks&maxResults=39&key=AIzaSyDqMS-EjI89-vKlNLi50qFmNQeLcxLPPoI`
 
+	
+	useEffect(() => {
+		console.log("im here!!")
+		let d = window.localStorage.getItem("searchData")
+		if(d){
+			setData(JSON.parse(d))
+			console.log(data)
+		}
+	},[])
 	const handleSearch = async (e: React.MouseEvent) => {
+		setData(null)
 		e.preventDefault()
 		setLoading(true)
 
@@ -26,13 +36,15 @@ const Search: React.FC<SearchProps> = ({}) => {
 		})
 		if (response) {
 			let books = await response.json()
+			let stringedData:string = JSON.stringify(books.items)
+			window.localStorage.setItem('searchData', stringedData)
 			setData(books.items)
 			setLoading(false)
 		}
 	}
 	return (
 		<div className="search">
-			<LoaderComp />
+			
 			<form>
 				<label htmlFor="search-input">Search Book</label>
 				<input

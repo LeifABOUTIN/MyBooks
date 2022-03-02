@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import LoaderComp from "../components/Loader"
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import "./css/Book.css"
 
 interface BookProps {}
@@ -30,6 +31,7 @@ const Book: React.FC<BookProps> = ({}) => {
 	let { id } = useParams()
 	const [data, setData] = useState<data | null>(null)
 	const url = "https://www.googleapis.com/books/v1/volumes/"
+	let navigate = useNavigate()
 	useEffect(() => {
 		handleBookData()
 	}, [id])
@@ -39,13 +41,20 @@ const Book: React.FC<BookProps> = ({}) => {
 		console.log(data)
 
 		setData(data)
+	
 		console.log(data)
 		let pDescription: HTMLElement | null =
 			document.querySelector(".description")!
-		pDescription.innerHTML = data.volumeInfo.description
+		pDescription.innerHTML = data.volumeInfo.description ? data.volumeInfo.description  : "No data"
+		setTimeout(() => {
+			document.querySelector(".book-data")!.classList.add("book-loaded")
+		}, 500)
+		
 	}
 	return (
 		<div className="container-book">
+			<BsFillArrowLeftCircleFill onClick={() => navigate(-1)} />
+    
 			{!data && <LoaderComp />}
 			{data && (
 				<>

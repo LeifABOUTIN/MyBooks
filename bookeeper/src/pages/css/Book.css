@@ -2,6 +2,15 @@
 	display: flex;
 	gap: 2rem;
 	margin: 4rem 0;
+	clip-path: inset(0 100% 0 0);
+	transform: translateX(-200px);
+	opacity: 0.2;
+}
+.book-data.book-loaded{
+	clip-path: inset(0 0 0 0);
+	transform: translateX(0px);
+	transition: all .5s ease-in-out;
+	opacity: 1;
 }
 .container-book {
 	width: 1200px;
@@ -18,11 +27,15 @@ h1 {
 }
 .book-image {
 	height: 60%;
-	outline: 20px solid white;
+	border: 20px solid white;
 }
 .div-right {
 	/* margin: -200px 0 0 0; */
 	/* max-height: 1000px; */
+	width: 50%;
+}
+.div-left{
+	width: 50%;
 }
 .description-block {
 	background-color: white;
