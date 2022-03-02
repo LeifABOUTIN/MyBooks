@@ -2,14 +2,11 @@
 	display: flex;
 	gap: 2rem;
 	margin: 4rem 0;
-	clip-path: inset(0 100% 0 0);
-	transform: translateX(-200px);
-	opacity: 0.2;
 }
-.book-data.book-loaded{
+.container-book.book-loaded {
 	clip-path: inset(0 0 0 0);
 	transform: translateX(0px);
-	transition: all .5s ease-in-out;
+	transition: all 0.5s ease-in-out;
 	opacity: 1;
 }
 .container-book {
@@ -18,6 +15,9 @@
 	margin: 0 auto;
 	background-color: rgb(235, 235, 235);
 	padding: 2rem;
+	clip-path: inset(0 100% 0 0);
+	transform: translateX(-200px);
+	opacity: 0.2;
 }
 h1 {
 	margin-bottom: 2.25rem;
@@ -34,11 +34,27 @@ h1 {
 	/* max-height: 1000px; */
 	width: 50%;
 }
-.div-left{
+.div-left {
 	width: 50%;
 }
 .description-block {
 	background-color: white;
 	padding: 1rem;
 	color: #333;
+}
+.backBtn-book {
+	width: 40px;
+	height: auto;
+	cursor: pointer;
+}
+.backBtn-book:hover {
+	transform: scale(1.1);
+	color: white;
+	transition: scale ease-in 1s;
+}
+.modal-load {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }

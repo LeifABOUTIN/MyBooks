@@ -26,23 +26,20 @@ const List: React.FC<ListProps> = ({ data }) => {
 	const handleBookClick = (e: React.MouseEvent) => {
 		navigate(`/book/${e.currentTarget.parentElement!.id}`)
 	}
+
 	useEffect(() => {
 		let list = document.querySelector(".list")!
-		list.classList.remove('list-loaded')
-	
+		list.classList.remove("list-loaded")
+
 		setTimeout(() => {
-			
 			list.classList.add("list-loaded")
-			
-		},500)
-		
+		}, 500)
 	}, [data])
 
 	console.log(data)
 	return (
 		<div className="list">
-			{ data.map((book: data, index:number) => (
-			
+			{data.map((book: data) => (
 				<div className="book" id={book.id} key={book.id}>
 					<h3>{book.volumeInfo.title}</h3>
 
