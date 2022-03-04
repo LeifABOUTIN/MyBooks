@@ -7,13 +7,13 @@ ul {
 	gap: 1rem;
 	list-style: none;
 }
-.login-li {
+.login_li {
 	margin-left: auto;
 }
-li > a {
+a {
 	text-decoration: none;
 	color: black;
 }
-.logout-btn {
+.logout_btn {
 	margin-left: auto;
 }

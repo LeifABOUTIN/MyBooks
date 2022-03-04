@@ -1,25 +1,29 @@
 .list {
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+	/* display: flex; */
 	width: 100%;
 	gap: 1.5rem;
 	margin: 5rem 0 0 1rem;
-	flex-wrap: wrap;
-	justify-content: center;
+	/* flex-wrap: wrap; */
+	/* justify-content: center; */
 	clip-path: inset(0 100% 0 0);
 	transform: translateX(-200px);
 	opacity: 0.2;
 }
-.list.list-loaded{
+.list.list-loaded {
 	clip-path: inset(0 0 0 0);
 	transform: translateX(0px);
-	transition: all .5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+
 	opacity: 1;
 }
 
 .book {
 	position: relative;
 	color: white;
-	width: 25%;
+	/* width: 20%; */
+	max-width: 300px;
 
 	min-width: fit-content;
 	background: linear-gradient(
@@ -45,6 +49,7 @@
 	margin: 1rem auto;
 	font-family: Roboto, "sans-serif";
 	font-weight: 500;
+	font-size: 0.6rem;
 }
 .book > img {
 	height: auto;

@@ -85,10 +85,14 @@ const Book: React.FC<BookProps> = ({}) => {
 										onLoad={handleLoad}
 										className="book-image"
 										alt="book cover"
-										src={data.volumeInfo.imageLinks.medium.replace(
-											"http",
-											"https"
-										)}
+										src={
+											data.volumeInfo.imageLinks.medium
+												? data.volumeInfo.imageLinks.medium.replace(
+														"http",
+														"https"
+												  )
+												: data.volumeInfo.imageLinks.thumbnail
+										}
 									/>
 									<h5>Category</h5>
 									<p>{data.volumeInfo.categories}</p>

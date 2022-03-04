@@ -1,9 +1,10 @@
-import { listenerCount } from "process"
-import React, { ReactEventHandler, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { BsArrowRightCircleFill } from "react-icons/bs"
 import { FaPlusCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 import "./css/List.css"
+import FilterAndSortComponentProps from "./FilterAndSortComponentProps"
 
 interface ListProps {
 	data: []
@@ -23,40 +24,92 @@ interface data {
 
 const List: React.FC<ListProps> = ({ data }) => {
 	const navigate = useNavigate()
+
 	const handleBookClick = (e: React.MouseEvent) => {
 		navigate(`/book/${e.currentTarget.parentElement!.id}`)
 	}
-
+	const [filtered, setFiltered] = useState<any[]>(data)
 	useEffect(() => {
-		let list = document.querySelector(".list")!
-		list.classList.remove("list-loaded")
+		setTimeout(
+			() => {
+				document.querySelector(".list")!.classList.add("list-loaded")
+			},
 
-		setTimeout(() => {
-			list.classList.add("list-loaded")
-		}, 500)
+			500
+		)
+		setFiltered([...data])
+
+		return () => {
+			document.querySelector(".list")!.classList.remove("list-loaded")
+		}
 	}, [data])
 
-	console.log(data)
 	return (
-		<div className="list">
-			{data.map((book: data) => (
-				<div className="book" id={book.id} key={book.id}>
-					<h3>{book.volumeInfo.title}</h3>
+		<>
+			<FilterAndSortComponentProps data={data} setFiltered={setFiltered} />
+			<motion.div
+				layout
+				transition={{ ease: "easeOut", duration: 1 }}
+				className="list"
+			>
+				{filtered.length > 0
+					? filtered.map((book: data) => (
+							<motion.div
+								transition={{ ease: "easeOut", duration: 1 }}
+								layout
+								className="book"
+								id={book.id}
+								key={book.id}
+								style={{ marginBottom: "2rem" }}
+							>
+								<h3>
+									{book.volumeInfo.title.length < 25
+										? book.volumeInfo.title
+										: book.volumeInfo.title.substr(0, 20) + "..."}
+								</h3>
 
-					{book.volumeInfo.imageLinks && (
-						<img
-							src={book.volumeInfo.imageLinks.thumbnail}
-							alt="book cover"
-						/>
-					)}
-					<BsArrowRightCircleFill
-						onClick={handleBookClick}
-						className="icons"
-					/>
-					<FaPlusCircle className="icons" />
-				</div>
-			))}
-		</div>
+								{book.volumeInfo.imageLinks && (
+									<img
+										src={book.volumeInfo.imageLinks.thumbnail}
+										alt="book cover"
+									/>
+								)}
+								<BsArrowRightCircleFill
+									onClick={handleBookClick}
+									className="icons"
+								/>
+								<FaPlusCircle className="icons" />
+							</motion.div>
+					  ))
+					: data.map((book: data) => (
+							<motion.div
+								transition={{ ease: "easeOut", duration: 1 }}
+								layout
+								className="book"
+								id={book.id}
+								key={book.id}
+							>
+								<h3>
+									{book.volumeInfo.title.length < 25
+										? book.volumeInfo.title
+										: book.volumeInfo.title.substr(0, 20) + "..."}
+								</h3>
+
+								{book.volumeInfo.imageLinks && (
+									<img
+										src={book.volumeInfo.imageLinks.thumbnail}
+										alt="book cover"
+									/>
+								)}
+								<BsArrowRightCircleFill
+									onClick={handleBookClick}
+									className="icons"
+								/>
+								<FaPlusCircle className="icons" />
+							</motion.div>
+					  ))}
+			</motion.div>
+		</>
 	)
 }
 export default List

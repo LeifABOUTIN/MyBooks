@@ -15,14 +15,13 @@ const Search: React.FC<SearchProps> = ({}) => {
 
 	const url: string = `https://www.googleapis.com/books/v1/volumes?q=${encodeURI(
 		search
-	)}+subject:fiction&printType=books&langRestrict=en&filter=ebooks&maxResults=39&key=AIzaSyDqMS-EjI89-vKlNLi50qFmNQeLcxLPPoI`
+	)}+subject:fiction&printType=books&langRestrict=en&filter=ebooks&maxResults=40&key=AIzaSyDqMS-EjI89-vKlNLi50qFmNQeLcxLPPoI`
 
 	useEffect(() => {
-		console.log("im here!!")
 		let d = window.localStorage.getItem("searchData")
 		if (d) {
 			setData(JSON.parse(d))
-			console.log(data)
+			setLoaded(true)
 		}
 	}, [])
 	const handleSearch = async (e: React.MouseEvent) => {

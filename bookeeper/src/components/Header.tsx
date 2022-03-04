@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import "./css/Header.css"
+import styles from "./css/Header.module.css"
 
 interface HeaderProps {
 	login: boolean
@@ -14,35 +14,45 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 	}
 	return (
 		<header>
-			<nav>
-				<ul>
+			<nav className={styles.nav}>
+				<ul className={styles.ul}>
 					<li>
-						<Link to="/">HOME</Link>
+						<Link className={styles.a} to="/">
+							HOME
+						</Link>
 					</li>
 					{login && (
 						<>
 							<li>
-								<Link to="/bookshelf">BOOKSHELF</Link>
+								<Link className={styles.a} to="/bookshelf">
+									BOOKSHELF
+								</Link>
 							</li>
 							<li>
-								<Link to="/search">SEARCH</Link>
+								<Link className={styles.a} to="/search">
+									SEARCH
+								</Link>
 							</li>
 						</>
 					)}
 
 					{!login ? (
 						<>
-							<li className="login-li">
-								<Link to="/login">LOGIN</Link>
+							<li className={styles.login_li}>
+								<Link className={styles.a} to="/login">
+									LOGIN
+								</Link>
 							</li>
 							<li>
-								<Link to="/register">REGISTER</Link>
+								<Link className={styles.a} to="/register">
+									REGISTER
+								</Link>
 							</li>
 						</>
 					) : (
 						<button
 							onClick={handleLogout}
-							className="logout-btn"
+							className={styles.logout_btn}
 							type="button"
 						>
 							LOGOUT
