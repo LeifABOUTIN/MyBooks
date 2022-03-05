@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { BsArrowRightCircleFill } from "react-icons/bs"
 import { FaPlusCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import "./css/List.css"
 import FilterAndSortComponentProps from "./FilterAndSortComponentProps"
 
@@ -49,64 +49,70 @@ const List: React.FC<ListProps> = ({ data }) => {
 			<FilterAndSortComponentProps data={data} setFiltered={setFiltered} />
 			<motion.div
 				layout
-				transition={{ ease: "easeOut", duration: 1 }}
+				animate={{ opacity: 1 }}
+				initial={{ opacity: 0 }}
+				exit={{ opacity: 0 }}
+				transition={{ duration: 0.2 }}
 				className="list"
 			>
 				{filtered.length > 0
 					? filtered.map((book: data) => (
-							<motion.div
-								transition={{ ease: "easeOut", duration: 1 }}
-								layout
-								className="book"
-								id={book.id}
-								key={book.id}
-								style={{ marginBottom: "2rem" }}
-							>
-								<h3>
-									{book.volumeInfo.title.length < 25
-										? book.volumeInfo.title
-										: book.volumeInfo.title.substr(0, 20) + "..."}
-								</h3>
+							<AnimatePresence>
+								<motion.div
+									layout
+									className="book"
+									id={book.id}
+									key={book.id}
+									style={{ marginBottom: "2rem" }}
+								>
+									<h3>
+										{book.volumeInfo.title.length < 25
+											? book.volumeInfo.title
+											: book.volumeInfo.title.substr(0, 20) + "..."}
+									</h3>
 
-								{book.volumeInfo.imageLinks && (
-									<img
-										src={book.volumeInfo.imageLinks.thumbnail}
-										alt="book cover"
+									{book.volumeInfo.imageLinks && (
+										<img
+											src={book.volumeInfo.imageLinks.thumbnail}
+											alt="book cover"
+										/>
+									)}
+									<BsArrowRightCircleFill
+										onClick={handleBookClick}
+										className="icons"
 									/>
-								)}
-								<BsArrowRightCircleFill
-									onClick={handleBookClick}
-									className="icons"
-								/>
-								<FaPlusCircle className="icons" />
-							</motion.div>
+									<FaPlusCircle className="icons" />
+								</motion.div>
+							</AnimatePresence>
 					  ))
 					: data.map((book: data) => (
-							<motion.div
-								transition={{ ease: "easeOut", duration: 1 }}
-								layout
-								className="book"
-								id={book.id}
-								key={book.id}
-							>
-								<h3>
-									{book.volumeInfo.title.length < 25
-										? book.volumeInfo.title
-										: book.volumeInfo.title.substr(0, 20) + "..."}
-								</h3>
+							<AnimatePresence>
+								<motion.div
+									transition={{ ease: "easeOut", duration: 1 }}
+									layout
+									className="book"
+									id={book.id}
+									key={book.id}
+								>
+									<h3>
+										{book.volumeInfo.title.length < 25
+											? book.volumeInfo.title
+											: book.volumeInfo.title.substr(0, 20) + "..."}
+									</h3>
 
-								{book.volumeInfo.imageLinks && (
-									<img
-										src={book.volumeInfo.imageLinks.thumbnail}
-										alt="book cover"
+									{book.volumeInfo.imageLinks && (
+										<img
+											src={book.volumeInfo.imageLinks.thumbnail}
+											alt="book cover"
+										/>
+									)}
+									<BsArrowRightCircleFill
+										onClick={handleBookClick}
+										className="icons"
 									/>
-								)}
-								<BsArrowRightCircleFill
-									onClick={handleBookClick}
-									className="icons"
-								/>
-								<FaPlusCircle className="icons" />
-							</motion.div>
+									<FaPlusCircle className="icons" />
+								</motion.div>
+							</AnimatePresence>
 					  ))}
 			</motion.div>
 		</>

@@ -1,3 +1,12 @@
+header {
+	width: 100%;
+	padding: 1.75rem 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: white;
+	z-index: 1000;
+}
 nav {
 	width: 90%;
 	margin: auto;

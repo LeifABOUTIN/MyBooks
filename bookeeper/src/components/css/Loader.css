@@ -1,13 +1,13 @@
 .loader {
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
 	border-top: 5px solid rgb(0, 4, 248);
 	background-color: transparent;
 	position: relative;
 	top: 0;
 	left: 0;
-
+	margin-top: 4rem;
 	border-bottom: black solid 1px;
 	animation: specialRotation 1s linear infinite forwards;
 }
@@ -40,9 +40,9 @@
 		background: linear-gradient(
 			90deg,
 			rgb(0, 4, 248) 0%,
-			rgb(0, 0, 0) 33%,
-			rgb(0, 0, 0) 66%,
-			rgb(0, 0, 0) 100%
+			rgb(255, 255, 255) 33%,
+			rgb(255, 255, 255) 66%,
+			rgb(255, 255, 255) 100%
 		);
 		background-clip: text;
 		background-repeat: repeat;
@@ -52,10 +52,10 @@
 	33% {
 		background: linear-gradient(
 			90deg,
-			rgb(0, 0, 0) 0%,
+			rgb(255, 255, 255) 0%,
 			rgb(0, 4, 248) 33%,
-			rgb(0, 0, 0) 66%,
-			rgb(0, 0, 0) 100%
+			rgb(255, 255, 255) 66%,
+			rgb(255, 255, 255) 100%
 		);
 		background-clip: text;
 		background-repeat: repeat;
@@ -65,10 +65,10 @@
 	66% {
 		background: linear-gradient(
 			90deg,
-			rgba(2, 0, 36, 1) 0%,
-			rgb(0, 0, 0) 33%,
+			rgb(255, 255, 255) 0%,
+			rgb(255, 255, 255) 33%,
 			rgb(0, 4, 248) 66%,
-			rgb(0, 0, 0) 100%
+			rgb(255, 255, 255) 100%
 		);
 		background-clip: text;
 		background-repeat: repeat;
@@ -78,9 +78,9 @@
 	100% {
 		background: linear-gradient(
 			90deg,
-			rgb(0, 0, 0) 0%,
-			rgb(0, 0, 0) 33%,
-			rgb(0, 0, 0) 66%,
+			rgb(255, 255, 255) 0%,
+			rgb(255, 255, 255) 33%,
+			rgb(255, 255, 255) 66%,
 			rgb(0, 4, 248) 100%
 		);
 		background-clip: text;
@@ -111,7 +111,7 @@
 	flex-direction: column;
 }
 .loader-container > h1 {
-	font-size: 1.5rem;
+	font-size: 4rem;
 	background-clip: text;
 	background-repeat: repeat;
 	background-size: 100%;
