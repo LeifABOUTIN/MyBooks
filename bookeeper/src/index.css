@@ -1,6 +1,13 @@
+:root {
+	--primary-color: #eec8b1;
+	--secondary-color: #622f22;
+	--background-color: #333;
+	--background-color-light: #dddddd;
+}
+
 #root {
 	min-height: 100vh;
-	background: #222;
+	background: var(--background-color);
 }
 body {
 	margin: 0;

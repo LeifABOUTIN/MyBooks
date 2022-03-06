@@ -23,10 +23,12 @@ interface data {
 }
 
 const List: React.FC<ListProps> = ({ data }) => {
+	console.log(data)
 	const navigate = useNavigate()
 
 	const handleBookClick = (e: React.MouseEvent) => {
-		navigate(`/book/${e.currentTarget.parentElement!.id}`)
+		console.log(e.currentTarget.parentElement!.parentElement)
+		navigate(`/book/${e.currentTarget.parentElement!.parentElement!.id}`)
 	}
 	const [filtered, setFiltered] = useState<any[]>(data)
 	useEffect(() => {
@@ -57,62 +59,68 @@ const List: React.FC<ListProps> = ({ data }) => {
 			>
 				{filtered.length > 0
 					? filtered.map((book: data) => (
-							<AnimatePresence>
-								<motion.div
-									layout
-									className="book"
-									id={book.id}
-									key={book.id}
-									style={{ marginBottom: "2rem" }}
-								>
-									<h3>
+							<div key={book.id} id={book.id}>
+								<AnimatePresence key={book.id}>
+									<motion.div
+										layout
+										className="book"
+										id={book.id}
+										key={book.id}
+									>
+										{/* <h3>
 										{book.volumeInfo.title.length < 25
 											? book.volumeInfo.title
 											: book.volumeInfo.title.substr(0, 20) + "..."}
-									</h3>
-
-									{book.volumeInfo.imageLinks && (
-										<img
-											src={book.volumeInfo.imageLinks.thumbnail}
-											alt="book cover"
-										/>
-									)}
-									<BsArrowRightCircleFill
-										onClick={handleBookClick}
-										className="icons"
-									/>
-									<FaPlusCircle className="icons" />
-								</motion.div>
-							</AnimatePresence>
+									</h3> */}
+										{book.volumeInfo.imageLinks && (
+											<img
+												src={book.volumeInfo.imageLinks.thumbnail}
+												alt="book cover"
+											/>
+										)}
+										<div className="action">
+											<BsArrowRightCircleFill
+												onClick={handleBookClick}
+												className="icons icon-arrow"
+											/>
+											<FaPlusCircle className="icons icon-plus" />
+										</div>
+									</motion.div>
+								</AnimatePresence>
+							</div>
 					  ))
 					: data.map((book: data) => (
-							<AnimatePresence>
-								<motion.div
-									transition={{ ease: "easeOut", duration: 1 }}
-									layout
-									className="book"
-									id={book.id}
-									key={book.id}
-								>
-									<h3>
+							<div key={book.id} id={book.id}>
+								<AnimatePresence>
+									<motion.div
+										transition={{ ease: "easeOut", duration: 1 }}
+										layout
+										className="book"
+										id={book.id}
+										key={book.id}
+									>
+										{/* <h3>
 										{book.volumeInfo.title.length < 25
 											? book.volumeInfo.title
 											: book.volumeInfo.title.substr(0, 20) + "..."}
-									</h3>
+									</h3> */}
 
-									{book.volumeInfo.imageLinks && (
-										<img
-											src={book.volumeInfo.imageLinks.thumbnail}
-											alt="book cover"
-										/>
-									)}
-									<BsArrowRightCircleFill
-										onClick={handleBookClick}
-										className="icons"
-									/>
-									<FaPlusCircle className="icons" />
-								</motion.div>
-							</AnimatePresence>
+										{book.volumeInfo.imageLinks && (
+											<img
+												src={book.volumeInfo.imageLinks.thumbnail}
+												alt="book cover"
+											/>
+										)}
+										<div className="action">
+											<BsArrowRightCircleFill
+												onClick={handleBookClick}
+												className="icons icon-arrow"
+											/>
+											<FaPlusCircle className="icons icon-plus" />
+										</div>
+									</motion.div>
+								</AnimatePresence>
+							</div>
 					  ))}
 			</motion.div>
 		</>

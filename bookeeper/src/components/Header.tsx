@@ -8,7 +8,6 @@ interface HeaderProps {
 }
 const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 	const handleLogout = (): void => {
-		console.log("handleLogout")
 		setLogin(false)
 		console.log(login)
 	}
@@ -16,12 +15,14 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 		<header>
 			<nav>
 				<ul>
-					<li>
-						<Link to="/">HOME</Link>
+					<li className="home_a">
+						<Link to="/">
+							<span>Book</span>eeper
+						</Link>
 					</li>
 					{login && (
 						<>
-							<li>
+							<li className="when-isLoggedIn">
 								<Link to="/bookshelf">BOOKSHELF</Link>
 							</li>
 							<li>

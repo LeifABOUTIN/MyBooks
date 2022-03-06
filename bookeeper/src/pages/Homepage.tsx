@@ -49,16 +49,15 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 					left: "50%",
 					transform: "translate(-50%, -50%)",
 				},
-				{ duration: 5, scale: 1.5, rotationX: 0, y: 0 },
+				{ duration: 5, scale: 1, rotationX: 0, y: 0 },
 				"-=3"
 			)
 			.fromTo(header, { y: "-100%" }, { y: 0 }, "-=1.25")
 
 			.to(period, { color: "#622F22" }, "-=.75")
-			.to(header, { background: "#622F22" }, "-=.75")
 
 			.to(title, { color: "#eec8b1" }, "-=.75")
-			.to(a, { color: "white" }, "-=.75")
+
 			// .to(book, { scale: 0.8, duration: 2 })
 			.fromTo(
 				".homepage_anim",
@@ -72,11 +71,11 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 				},
 				"-=.75"
 			)
-			.fromTo(footer, { y: "120%", background: "white" }, { y: 0 }, "-=1.25")
-			.to(footer, { background: "#eec8b1" }, "-=.25")
+			.fromTo(footer, { y: "120%" }, { y: 0 }, "-=1.25")
 			.to(".homepage_playback", { opacity: 1 })
 	}, [])
 	const handleTLReverse = () => {
+		TL.timeScale(2)
 		TL.reverse()
 	}
 	return (
@@ -95,13 +94,16 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 				<h2 className="homepage_anim">Share.</h2>
 			</div>
 			<footer className="homepage_footer">
-				<a href="https://www.linkedin.com/in/leif-boutin-34a275109/ ">
+				<a
+					href="https://www.linkedin.com/in/leif-boutin-34a275109/"
+					target="_blank"
+				>
 					<AiFillLinkedin className="contact" />
 				</a>
-				<a href="https://twitter.com/BoutinLeif ">
+				<a href="https://twitter.com/BoutinLeif" target="_blank">
 					<AiFillTwitterCircle className="contact" />
 				</a>
-				<a href="mailto:leif.k.boutin@gmail.com ">
+				<a href="mailto:leif.k.boutin@gmail.com">
 					<AiFillMail className="contact" />
 				</a>
 			</footer>

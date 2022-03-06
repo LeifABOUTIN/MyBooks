@@ -17,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ setLogin }) => {
 		e.preventDefault()
 		console.log(username, password)
 		setLogin(true)
-		navigate("/")
+		navigate("/search")
 	}
 	return (
 		<div className="login_main">

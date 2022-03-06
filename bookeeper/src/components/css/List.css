@@ -1,10 +1,11 @@
 .list {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	grid-template-columns: repeat(auto-fit, 160px);
 	/* display: flex; */
 	width: 100%;
-	gap: 1rem 0.5rem;
+	gap: 1.5rem 1rem;
 	margin: 5rem 0 0 1rem;
+	padding: 4rem;
 	/* flex-wrap: wrap; */
 	/* justify-content: center; */
 	clip-path: inset(0 100% 0 0);
@@ -23,53 +24,97 @@
 	position: relative;
 	color: white;
 	/* width: 20%; */
-	max-width: 320px;
-
+	/* max-width: 320px; */
+	height: 220px;
 	min-width: fit-content;
 	/* background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(104, 2, 2) 100%); */
-	background-color: rgba(235, 235, 235, 0.3);
+	background-color: var(--primary-color);
+	color: black;
 	border-radius: 20px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	text-align: center;
 	flex-direction: column;
-	padding: 3rem 1.25rem;
+	padding: 3rem 0;
 }
 .book:hover {
-	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	box-shadow: none;
+
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	transform: scale(1.1);
+	z-index: 199999999;
 }
-.book > h3 {
+.book:hover > img {
+	transition: transform 0.25s linear;
+	transform: scale(1.1);
+	z-index: 11111111111111111111;
+	border: 5px solid black;
+}
+.book:hover > .action {
+	transition: transform 0.25s linear, opacity 0.25s linear;
+	transform: translateX(-50px) scale(1.1);
+	z-index: 111111111111111111111111111111;
+	opacity: 1;
+}
+/* .book > h3 {
 	margin: 1rem auto;
 	font-family: Roboto, "sans-serif";
 	font-weight: 500;
 	font-size: 0.6rem;
-}
+
+	position: absolute;
+	left: 0;
+	background-color: red;
+	transform: rotate(90deg);
+
+	bottom: 30px;
+} */
 .book > img {
-	height: auto;
-	width: 160px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 	object-fit: cover;
-	margin: auto auto 0 auto;
+	margin: auto;
+	border-radius: 20px;
+}
+.action {
+	background-color: black;
+	height: 220px;
+	width: fit-content;
+	padding: 0.5rem;
+	transform: translateX(-50%);
+	z-index: -1;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	justify-content: center;
+	bottom: 0;
+	left: 30px;
+	opacity: 0;
 }
 .icons {
-	position: absolute;
-	color: black;
-	width: 40px;
-	height: 40px;
-	right: 10px;
+	color: white;
+	width: 30px;
+	height: 30px;
 }
 
 .icons:hover {
-	transform: scale(1.25);
+	transform: scale(1.15);
 	transition: all 0.5s ease-in-out;
 	cursor: pointer;
-	color: white;
+	color: var(--primary-color);
 }
-.icons:last-child {
-	top: 60%;
+
+.icon-plus {
+	margin-top: 10px;
 }
-.icons:first-child {
-	top: 40%;
-}
+/*
+.icon-arrow {
+	right: 70px;
+}  */
