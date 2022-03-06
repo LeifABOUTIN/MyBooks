@@ -52,7 +52,7 @@ const Search: React.FC<SearchProps> = ({}) => {
 						type="text"
 						value={search}
 					/>
-					<input onClick={handleSearch} type="submit" />
+					<input onClick={handleSearch} type="submit" value="Search" />
 				</form>
 
 				{data && <List data={data} />}

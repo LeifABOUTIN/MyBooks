@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import "./css/FilterAndSortComponent.css"
 
 interface FilterAndSortComponentProps {
 	data: []
@@ -40,12 +41,15 @@ const FilterAndSortComponentProps: React.FC<FilterAndSortComponentProps> = ({
 	}
 	return (
 		<>
-			<span>by title</span>
-			<input
-				onChange={(e) => filterData(e)}
-				type="text"
-				value={filterInput}
-			/>
+			<div className="filterAndSort">
+				<h2>Filter and Sort</h2>
+				<span>Filter by title</span>
+				<input
+					onChange={(e) => filterData(e)}
+					type="text"
+					value={filterInput}
+				/>
+			</div>
 		</>
 	)
 }

@@ -1,11 +1,11 @@
-.container_login {
+.container_register {
 	width: 100vw;
 	height: 100vh;
 	display: grid;
 	place-items: center;
 }
 
-.login_main {
+.register_main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -18,7 +18,7 @@
 	/* background-color: #666; */
 	gap: 0.25rem;
 }
-.login_main > h1 {
+.register_main > h1 {
 	margin: 2rem 0 3rem 0;
 	font-weight: 900;
 	font-family: "Poppins", sans-serif;

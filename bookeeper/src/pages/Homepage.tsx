@@ -3,19 +3,15 @@ import "./css/Homepage.css"
 import { AiFillTwitterCircle, AiFillLinkedin, AiFillMail } from "react-icons/ai"
 import { CgPlayBackwards } from "react-icons/cg"
 import { gsap } from "gsap"
-import book from "../imgs/book.png"
 
 interface homepageProps {}
 
 const Homepage: React.FC<homepageProps> = ({}) => {
 	let TL: gsap.core.Timeline
-	let TL2: gsap.core.Timeline
 
 	useEffect(() => {
 		let title = document.querySelector(".homepage_title") as HTMLElement
-		let book = document.querySelector(".homepage_image") as HTMLImageElement
 		let header = document.querySelector("header") as HTMLElement
-		let a = document.querySelectorAll("a") as NodeListOf<HTMLAnchorElement>
 		let footer = document.querySelector("footer") as HTMLElement
 
 		let period = document
@@ -40,32 +36,20 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 				{ y: -500, opacity: 1 },
 				{ y: 0, ease: "bounce.out", duration: 1.5 }
 			)
-			.fromTo(
-				book,
-				{
-					scale: 0,
-					rotationX: -60,
-					top: "50%",
-					left: "50%",
-					transform: "translate(-50%, -50%)",
-				},
-				{ duration: 5, scale: 1, rotationX: 0, y: 0 },
-				"-=3"
-			)
+
 			.fromTo(header, { y: "-100%" }, { y: 0 }, "-=1.25")
 
 			.to(period, { color: "#622F22" }, "-=.75")
 
 			.to(title, { color: "#eec8b1" }, "-=.75")
 
-			// .to(book, { scale: 0.8, duration: 2 })
 			.fromTo(
 				".homepage_anim",
 				{ opacity: 0, x: -100 },
 				{
 					opacity: 1,
-					stagger: 0.1,
-					ease: "elastic.out(1, 0.3)",
+					stagger: 0.4,
+					ease: "elastic.out(2, 0.3)",
 					duration: 1,
 					x: 0,
 				},
@@ -80,18 +64,20 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 	}
 	return (
 		<div className="homepage_container">
+			{/* <Welcome /> */}
 			<CgPlayBackwards
 				onClick={() => handleTLReverse()}
 				className="homepage_playback"
 			/>
-			<img src={book} alt="" className="homepage_image" />
+			<div className="homepage_image"></div>
+			{/* <img src={book} alt="book in background" className="homepage_image" /> */}
 			<h1 className="homepage_title">
 				Bookeeper<span>.</span>
 			</h1>
 			<div className="h2">
-				<h2 className="homepage_anim">Look.</h2>
-				<h2 className="homepage_anim">Add.</h2>
-				<h2 className="homepage_anim">Share.</h2>
+				<h2 className="homepage_anim">Look</h2>
+				<h2 className="homepage_anim">Add</h2>
+				<h2 className="homepage_anim">Share</h2>
 			</div>
 			<footer className="homepage_footer">
 				<a

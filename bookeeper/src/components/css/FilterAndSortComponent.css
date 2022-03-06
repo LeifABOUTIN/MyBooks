@@ -1,0 +1,20 @@
+.filterAndSort {
+	margin-top: 2rem;
+	width: 100%;
+	background-color: var(--background-color-light);
+	display: grid;
+	place-items: center;
+	gap: 1rem;
+}
+.filterAndSort span {
+	margin: 0.25rem 0;
+	font-family: sans-serif;
+	font-size: 1.5rem;
+}
+.filterAndSort input {
+	margin-bottom: 2rem;
+}
+.filterAndSort h2 {
+	margin: 2rem 0;
+	text-decoration: underline;
+}

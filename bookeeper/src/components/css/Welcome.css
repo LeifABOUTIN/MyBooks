@@ -1,0 +1,19 @@
+.welcome_svg {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	z-index: 2;
+	stroke: var(--secondary-color);
+	width: 200px;
+}
+
+.path {
+	animation: dash 10s 10s ease-in-out forwards;
+	stroke-dasharray: 8000;
+	stroke-dashoffset: 8000;
+}
+@keyframes dash {
+	to {
+		stroke-dashoffset: 0;
+	}
+}

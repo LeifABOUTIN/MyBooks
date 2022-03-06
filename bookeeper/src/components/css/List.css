@@ -52,7 +52,7 @@
 	transition: transform 0.25s linear;
 	transform: scale(1.1);
 	z-index: 11111111111111111111;
-	border: 5px solid black;
+	border: 5px solid var(--secondary-color);
 }
 .book:hover > .action {
 	transition: transform 0.25s linear, opacity 0.25s linear;
@@ -84,7 +84,7 @@
 	border-radius: 20px;
 }
 .action {
-	background-color: black;
+	background-color: var(--secondary-color);
 	height: 220px;
 	width: fit-content;
 	padding: 0.5rem;

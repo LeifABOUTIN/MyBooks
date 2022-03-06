@@ -4,3 +4,39 @@
 	margin: auto;
 	padding-top: 10rem;
 }
+.search > form {
+	background-color: var(--background-color-light);
+	padding: 5rem 0;
+	display: flex;
+	flex-direction: column;
+}
+.search form label {
+	font-family: "Poppins", sans-serif;
+	font-size: 3rem;
+	width: fit-content;
+	padding-bottom: 2rem;
+}
+.search > form input {
+	width: 300px;
+	height: 2rem;
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+.search form label:hover {
+	transform: none;
+}
+.search input[type="submit"] {
+	width: fit-content;
+	padding: 0.5rem 1rem;
+	margin-bottom: -2rem;
+	height: fit-content;
+	cursor: pointer;
+	font-family: Roboto;
+	background-color: var(--primary-color);
+	font-size: 1.5em;
+	border-radius: 1rem;
+}
+.search input[type="submit"]:hover {
+	background-color: var(--secondary-color);
+	color: white;
+}

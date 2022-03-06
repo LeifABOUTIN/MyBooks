@@ -11,6 +11,15 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 		setLogin(false)
 		console.log(login)
 	}
+	const handleActive = (e: React.MouseEvent): void => {
+		if (!e.currentTarget.classList.contains("active")) {
+			let allLis = document.querySelectorAll("li")!
+			allLis.forEach((l) => {
+				l.classList.remove("active")
+			})
+			e.currentTarget.classList.add("active")
+		}
+	}
 	return (
 		<header>
 			<nav>
@@ -22,10 +31,10 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 					</li>
 					{login && (
 						<>
-							<li className="when-isLoggedIn">
+							<li onClick={handleActive} className="when-isLoggedIn">
 								<Link to="/bookshelf">BOOKSHELF</Link>
 							</li>
-							<li>
+							<li onClick={handleActive}>
 								<Link to="/search">SEARCH</Link>
 							</li>
 						</>
@@ -33,10 +42,10 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
 
 					{!login ? (
 						<>
-							<li className="login_li">
+							<li onClick={handleActive} className="login_li">
 								<Link to="/login">LOGIN</Link>
 							</li>
-							<li>
+							<li onClick={handleActive}>
 								<Link to="/register">REGISTER</Link>
 							</li>
 						</>
