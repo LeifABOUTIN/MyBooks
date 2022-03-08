@@ -3,9 +3,12 @@ import "./css/Search.css"
 import List from "../components/List"
 import LoaderComp from "../components/Loader"
 
-interface SearchProps {}
+interface SearchProps {
+	account: string | null
+}
 
-const Search: React.FC<SearchProps> = ({}) => {
+const Search: React.FC<SearchProps> = ({ account }) => {
+	console.log(account)
 	const [search, setSearch] = useState<string>("")
 	const [data, setData] = useState<[] | null>(null)
 	const [loaded, setLoaded] = useState<boolean>(false)
@@ -45,6 +48,7 @@ const Search: React.FC<SearchProps> = ({}) => {
 			<div className="modal-load">{!loaded && <LoaderComp />}</div>
 			<div className="search">
 				<form>
+					<h1>{account}</h1>
 					<label htmlFor="search-input">Search Book</label>
 					<input
 						onChange={handleChange}

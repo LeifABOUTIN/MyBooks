@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -115,10 +116,10 @@ func createBookShelf(c * gin.Context){
 		Admin: false,
 	}
 
-	result, err := collectionAccounts.InsertOne(ctx, newAccount)
+	_, err := collectionAccounts.InsertOne(ctx, newAccount)
 	if err != nil {
 	
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Bookeshelf already exists.", "error": err.Error(), "account": requestBody.Account})
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Account already taken.", "error": err.Error(), "account": requestBody.Account})
 		return
 	}
 	newBookshelf := bookshelf{
@@ -132,7 +133,7 @@ func createBookShelf(c * gin.Context){
 		return
 	}
 	println(resultBookshelf)
-	c.IndentedJSON(http.StatusOK, result)
+	c.IndentedJSON(http.StatusOK, gin.H{"account": requestBody.Account})
 	
 
 	
@@ -224,6 +225,7 @@ if err != nil {
 }
 
 	router = gin.Default()
+	router.Use(cors.Default())
 	// cookie_store := cookie.NewStore([]byte("bookEEperCookie"))
   // router.Use(sessions.Sessions("session",cookie_store))
 	router.GET("/bookshelves", getAllAccounts)

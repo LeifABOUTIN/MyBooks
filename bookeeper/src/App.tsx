@@ -11,6 +11,8 @@ import "./App.css"
 
 const App: React.FC = ({}) => {
 	const [login, setLogin] = useState<boolean>(false)
+	const [account, setAccount] = useState<string | null>(null)
+	console.log(account)
 	return (
 		<>
 			<BrowserRouter>
@@ -21,8 +23,13 @@ const App: React.FC = ({}) => {
 						path="/login"
 						element={<Login login setLogin={setLogin} />}
 					/>
-					<Route path="/register" element={<Register />} />
-					<Route path="/search" element={<Search />} />
+					<Route
+						path="/register"
+						element={
+							<Register setAccount={setAccount} account={account} />
+						}
+					/>
+					<Route path="/search" element={<Search account={account} />} />
 					<Route path="/book/:id" element={<Book />} />
 				</Routes>
 			</BrowserRouter>

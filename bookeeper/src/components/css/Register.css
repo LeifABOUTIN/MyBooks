@@ -96,6 +96,9 @@ form {
 	opacity: 0;
 	animation: animateIcons 0.3s ease-in 0.1s forwards;
 }
+.input_error {
+	outline: 3px solid red;
+}
 @keyframes animateIcons {
 	0% {
 		opacity: 0;
