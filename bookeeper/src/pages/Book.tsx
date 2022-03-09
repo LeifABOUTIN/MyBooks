@@ -153,7 +153,9 @@ const Book: React.FC<BookProps> = ({ account }) => {
 									<div className="block-top-right-infos">
 										<h5>
 											Date of publication:{" "}
-											{data.volumeInfo.publishedDate}
+											{data.volumeInfo.publishedDate
+												? data.volumeInfo.publishedDate
+												: "----/--/--"}
 										</h5>
 										{data.volumeInfo.averageRating && (
 											<h5>

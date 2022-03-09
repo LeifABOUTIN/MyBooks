@@ -19,7 +19,7 @@ const App: React.FC = ({}) => {
 	const [account, setAccount] = useState<string | null>(null)
 	const options = {
 		position: positions.MIDDLE,
-		timeout: 5000,
+		timeout: 3000,
 		transition: transitions.SCALE,
 	}
 

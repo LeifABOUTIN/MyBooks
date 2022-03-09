@@ -253,7 +253,7 @@ if err != nil {
 	router.POST("/login", loginToBookeeper)
 	router.POST("/register", createBookShelf)
 	router.POST("/add-book", addBookToBookeeper)
-	router.Run()
+	router.Run(os.Getenv("PORT"))
 	fmt.Println("DB connected & Server Listening on port 8080")
 
  	

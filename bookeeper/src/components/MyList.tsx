@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import "./css/MyList.css"
 import FilterAndSortComponentProps from "./FilterAndSortComponentProps"
-import Loader from "./Loader"
 
 interface ListProps {
 	data: any[] | null

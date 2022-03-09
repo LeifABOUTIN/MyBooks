@@ -12,6 +12,8 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin, setAccount }) => {
 	const navigate = useNavigate()
 	const handleLogout = (): void => {
 		window.localStorage.removeItem("searchData")
+		window.localStorage.removeItem("myBooksSaved")
+
 		setAccount(null)
 		setLogin(false)
 		navigate("/")
