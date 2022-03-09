@@ -1,4 +1,5 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import "./css/Header.css"
 
@@ -7,9 +8,12 @@ interface HeaderProps {
 	setLogin: (value: boolean) => void
 }
 const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
+	const navigate = useNavigate()
 	const handleLogout = (): void => {
+		window.localStorage.removeItem("searchData")
+
 		setLogin(false)
-		console.log(login)
+		navigate("/")
 	}
 	const handleActive = (e: React.MouseEvent): void => {
 		if (!e.currentTarget.classList.contains("active")) {

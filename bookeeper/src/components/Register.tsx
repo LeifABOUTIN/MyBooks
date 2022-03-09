@@ -5,10 +5,15 @@ import "./css/Register.css"
 
 interface RegisterProps {
 	setAccount: (a: string) => void
+	setLogin: (a: boolean) => void
 	account: string | null
 }
 
-const Register: React.FC<RegisterProps> = ({ setAccount, account }) => {
+const Register: React.FC<RegisterProps> = ({
+	setAccount,
+	setLogin,
+	account,
+}) => {
 	console.log("ACCOUNT", account)
 	const [bookshelf, setBookshelf] = useState("")
 	const [password, setPassword] = useState("")
@@ -20,6 +25,7 @@ const Register: React.FC<RegisterProps> = ({ setAccount, account }) => {
 		console.log("useffect account", account)
 		if (account) navigate("/search")
 	}, [account])
+
 	const removeErrorClass = (e: any) => {
 		document.querySelector("#error_message_account")?.remove()
 		e.currentTarget.classList.contains("input_error") &&
@@ -41,6 +47,7 @@ const Register: React.FC<RegisterProps> = ({ setAccount, account }) => {
 		const result = await response.json()
 
 		if (response.status === 200) {
+			setLogin(true)
 			handleSettingAccount(result.account)
 		} else {
 			const wrongInput = document.querySelector(
@@ -131,6 +138,9 @@ const Register: React.FC<RegisterProps> = ({ setAccount, account }) => {
 						<button className="submit disabled">REGISTER</button>
 					)}
 				</form>
+				<a className="link_login" onClick={() => navigate("/login")}>
+					Already have an account?
+				</a>
 			</div>
 		</div>
 	)

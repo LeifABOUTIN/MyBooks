@@ -169,7 +169,8 @@ func loginToBookeeper(c* gin.Context){
 
 	var account accountLogin
 	if err := collectionAccounts.FindOne(ctx, bson.M{"account": requestBody.Account}).Decode(&account); err != nil {
-		log.Fatal(err)
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Account not found."})
+		return
 	}
 	// var password string
 

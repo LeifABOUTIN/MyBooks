@@ -96,6 +96,14 @@ form {
 	opacity: 0;
 	animation: animateIcons 0.3s ease-in 0.1s forwards;
 }
+.link_register {
+	color: var(--secondary-color);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.link_register:hover {
+	color: #333;
+}
 @keyframes animateIcons {
 	0% {
 		opacity: 0;

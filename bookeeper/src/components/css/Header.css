@@ -36,6 +36,10 @@ ul > li > a:hover {
 	font-weight: bold;
 	color: var(--secondary-color);
 }
+ul > li {
+	width: 3rem;
+	margin: 0 1rem;
+}
 ul > li.active > a:hover {
 	font-weight: 900;
 	color: black;
@@ -47,10 +51,11 @@ ul > li.active > a:hover {
 	margin-left: auto;
 	padding: 1rem 2rem;
 	background: white;
-	border-radius: 1rem;
+	border-radius: 0rem;
 	font-weight: 900;
 	border: none;
 	cursor: pointer;
+	transition: border-radius 0.5s ease-in-out;
 }
 .logout_btn:hover {
 	background: rgb(34, 34, 34);

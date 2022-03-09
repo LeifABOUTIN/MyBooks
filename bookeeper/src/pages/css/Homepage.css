@@ -38,8 +38,11 @@
 	top: 50%;
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
+	border-radius: 1rem;
 	gap: 1.5rem;
 	font-size: 1.5rem;
+	padding: 2rem 8rem 2rem 2rem;
 	transform: translateY(-50%);
 	color: #eec8b1;
 }
@@ -74,6 +77,9 @@
 .homepage_anim {
 	padding: 0 0 0.5rem 0.5rem;
 	font-family: "Poppins", sans-serif;
+}
+.homepage_anim:hover {
+	color: white;
 }
 
 .homepage_playback {

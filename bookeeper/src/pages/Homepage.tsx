@@ -42,7 +42,11 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 			.to(period, { color: "#622F22" }, "-=.75")
 
 			.to(title, { color: "#eec8b1" }, "-=.75")
+			.to(".h2", {
+				background: "rgba(98, 47, 34, 0.5)",
 
+				duration: 2,
+			})
 			.fromTo(
 				".homepage_anim",
 				{ opacity: 0, x: -100 },
@@ -56,6 +60,7 @@ const Homepage: React.FC<homepageProps> = ({}) => {
 				"-=.75"
 			)
 			.fromTo(footer, { y: "120%" }, { y: 0 }, "-=1.25")
+
 			.to(".homepage_playback", { opacity: 1 })
 	}, [])
 	const handleTLReverse = () => {

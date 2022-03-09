@@ -42,7 +42,7 @@ const List: React.FC<ListProps> = ({ data }) => {
 		setFiltered([...data])
 
 		return () => {
-			document.querySelector(".list")!.classList.remove("list-loaded")
+			document.querySelector(".list")?.classList.remove("list-loaded")
 		}
 	}, [data])
 
@@ -54,7 +54,7 @@ const List: React.FC<ListProps> = ({ data }) => {
 				animate={{ opacity: 1 }}
 				initial={{ opacity: 0 }}
 				exit={{ opacity: 0 }}
-				transition={{ duration: 0.2 }}
+				transition={{ duration: 1 }}
 				className="list"
 			>
 				{filtered.length > 0

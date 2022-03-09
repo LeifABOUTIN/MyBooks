@@ -99,6 +99,14 @@ form {
 .input_error {
 	outline: 3px solid red;
 }
+.link_login {
+	color: var(--secondary-color);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.link_login:hover {
+	color: #333;
+}
 @keyframes animateIcons {
 	0% {
 		opacity: 0;

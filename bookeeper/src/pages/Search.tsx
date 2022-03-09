@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react"
+import { useAlert } from "react-alert"
 import "./css/Search.css"
 import List from "../components/List"
 import LoaderComp from "../components/Loader"
+import { useNavigate } from "react-router-dom"
 
 interface SearchProps {
 	account: string | null
+	login: boolean
 }
 
-const Search: React.FC<SearchProps> = ({ account }) => {
-	console.log(account)
+const Search: React.FC<SearchProps> = ({ account, login }) => {
+	const navigate = useNavigate()
+	const alert = useAlert()
 	const [search, setSearch] = useState<string>("")
 	const [data, setData] = useState<[] | null>(null)
-	const [loaded, setLoaded] = useState<boolean>(false)
+	const [loaded, setLoaded] = useState<boolean>(true)
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value)
 	}
@@ -19,10 +23,27 @@ const Search: React.FC<SearchProps> = ({ account }) => {
 	const url: string = `https://www.googleapis.com/books/v1/volumes?q=${encodeURI(
 		search
 	)}+subject:fiction&printType=books&langRestrict=en&filter=ebooks&maxResults=40&key=AIzaSyDqMS-EjI89-vKlNLi50qFmNQeLcxLPPoI`
+	useEffect(() => {
+		if (!login) {
+			alert.show(
+				<div
+					style={{
+						color: "red",
+						padding: "1rem",
+						fontFamily: "Roboto",
+					}}
+				>
+					Please Login First.
+				</div>
+			)
 
+			navigate("/login")
+		}
+	}, [login])
 	useEffect(() => {
 		let d = window.localStorage.getItem("searchData")
 		if (d) {
+			console.log("d :", d)
 			setData(JSON.parse(d))
 			setLoaded(true)
 		}
