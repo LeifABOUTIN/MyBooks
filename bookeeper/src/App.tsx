@@ -11,7 +11,7 @@ import Login from "./components/Login"
 import Header from "./components/Header"
 import Search from "./pages/Search"
 import Book from "./pages/Book"
-
+import Bookshelf from "./pages/Bookshelf"
 import "./App.css"
 
 const App: React.FC = ({}) => {
@@ -19,7 +19,7 @@ const App: React.FC = ({}) => {
 	const [account, setAccount] = useState<string | null>(null)
 	const options = {
 		position: positions.MIDDLE,
-		timeout: 20000,
+		timeout: 5000,
 		transition: transitions.SCALE,
 	}
 
@@ -27,7 +27,11 @@ const App: React.FC = ({}) => {
 		<>
 			<AlertProvider template={AlertTemplate} {...options}>
 				<BrowserRouter>
-					<Header login={login} setLogin={setLogin} />
+					<Header
+						login={login}
+						setLogin={setLogin}
+						setAccount={setAccount}
+					/>
 					<Routes>
 						<Route path="/" element={<Homepage />} />
 						<Route
@@ -40,6 +44,10 @@ const App: React.FC = ({}) => {
 									setAccount={setAccount}
 								/>
 							}
+						/>
+						<Route
+							path="/bookshelf"
+							element={<Bookshelf account={account} login={login} />}
 						/>
 						<Route
 							path="/register"
@@ -55,7 +63,10 @@ const App: React.FC = ({}) => {
 							path="/search"
 							element={<Search login={login} account={account} />}
 						/>
-						<Route path="/book/:id" element={<Book />} />
+						<Route
+							path="/book/:id"
+							element={<Book account={account} />}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</AlertProvider>

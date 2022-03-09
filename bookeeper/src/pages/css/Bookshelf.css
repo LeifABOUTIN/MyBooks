@@ -1,0 +1,26 @@
+.container_bookshelf {
+	min-height: 100vh;
+	padding-top: 200px;
+	margin-top: 2rem;
+}
+.bookshelf_title {
+	color: var(--primary-color);
+	margin: 0 0 10rem 2rem;
+	font-size: 4rem;
+}
+.bookshelf_title > span:hover {
+	color: var(--background-color-light);
+	background: var(--secondary-color);
+	border-radius: 1rem;
+}
+.account_span {
+	font-size: 4.5rem;
+	color: var(--secondary-color);
+	background-color: var(--background-color-light);
+	padding: 0.5rem;
+	text-transform: uppercase;
+}
+.bookshelf_title > span:hover {
+	color: var(--background-color-light);
+	background: var(--secondary-color);
+}

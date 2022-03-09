@@ -43,7 +43,6 @@ const Search: React.FC<SearchProps> = ({ account, login }) => {
 	useEffect(() => {
 		let d = window.localStorage.getItem("searchData")
 		if (d) {
-			console.log("d :", d)
 			setData(JSON.parse(d))
 			setLoaded(true)
 		}
@@ -80,7 +79,7 @@ const Search: React.FC<SearchProps> = ({ account, login }) => {
 					<input onClick={handleSearch} type="submit" value="Search" />
 				</form>
 
-				{data && <List data={data} />}
+				{data && <List data={data} account={account} />}
 			</div>
 		</>
 	)

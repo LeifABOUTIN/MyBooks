@@ -1,0 +1,129 @@
+.container_bookshelf {
+	width: 100%;
+	max-width: 1400px;
+
+	margin: auto;
+}
+.empty-list {
+	margin: 0 auto;
+	color: white;
+	position: relative;
+}
+.no_data_my_bookeshelf {
+	margin: 10rem auto;
+	width: fit-content;
+	font-size: 3.5rem;
+	font-family: "Poppins", sans-serif;
+	font-weight: 900;
+	color: var(--primary-color);
+	background-color: rgba(75, 75, 75, 0.9);
+	padding: 0.25rem 2rem;
+	border-radius: 1rem;
+	border: 1px solid white;
+	transition: all 0.5s ease-in-out;
+}
+.no_data_my_bookeshelf:hover {
+	background-color: var(--primary-color);
+	color: black;
+	border: 1px solid black;
+}
+.my-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 160px);
+	/* display: flex; */
+	width: 100%;
+	gap: 1.5rem 1rem;
+	margin: 5rem 0 0 1rem;
+	padding: 4rem;
+	/* flex-wrap: wrap; */
+	/* justify-content: center; */
+	clip-path: inset(0 100% 0 0);
+	transform: translateX(-200px);
+	opacity: 0.2;
+}
+.my-list.my-list-loaded {
+	clip-path: inset(0 0 0 0);
+	transform: translateX(0px);
+	transition: all 0.5s ease-in-out;
+
+	opacity: 1;
+}
+
+.book {
+	position: relative;
+	color: white;
+	/* width: 20%; */
+	/* max-width: 320px; */
+	height: 220px;
+	min-width: fit-content;
+	/* background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(104, 2, 2) 100%); */
+	background-color: var(--primary-color);
+	color: black;
+	border-radius: 20px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+	display: flex;
+	justify-content: flex-end;
+	text-align: center;
+	flex-direction: column;
+	padding: 3rem 0;
+}
+.book:hover {
+	box-shadow: none;
+
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	transform: scale(1.1);
+	z-index: 199999999;
+}
+.book:hover > img {
+	transition: transform 0.25s linear;
+	transform: scale(1.1);
+	z-index: 11111111111111111111;
+	border: 5px solid var(--secondary-color);
+}
+.book:hover > .action {
+	transition: transform 0.25s linear, opacity 0.25s linear;
+	transform: translateX(-50px) scale(1.1);
+	z-index: 111111111111111111111111111111;
+	opacity: 1;
+}
+
+.book > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	margin: auto;
+	border-radius: 20px;
+}
+.action {
+	background-color: var(--secondary-color);
+	height: 220px;
+	width: fit-content;
+	padding: 0.5rem;
+	transform: translateX(-50%);
+	z-index: -1;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	justify-content: center;
+	bottom: 0;
+	left: 30px;
+	opacity: 0;
+}
+.icons {
+	color: white;
+	width: 30px;
+	height: 30px;
+}
+
+.icons:hover {
+	transform: scale(1.15);
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+	color: var(--primary-color);
+}

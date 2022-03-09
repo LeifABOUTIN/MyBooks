@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -21,6 +20,7 @@ import (
 
 
 var router *gin.Engine
+
 var ctx context.Context
 var collectionAccounts *mongo.Collection
 var collectionBooks *mongo.Collection
@@ -34,12 +34,12 @@ type accountLogin struct {
 	Password string `json:"password"`
 }
 type bookshelfBody struct {
-	Owner string `bson:"owner" json:"owner"`
+	Account string `bson:"account" json:"account"`
 	Book string `bson:"book" json:"book"`
 
 }
 type bookshelf struct {
-	Owner string `bson:"owner" json:"owner"`
+	Account string `bson:"account" json:"account"`
 	Books []string `bson:"books" json:"books"`
 }
 
@@ -49,8 +49,8 @@ func getMyBookshelves(c * gin.Context){
 		fmt.Print(err)
 	}
 	var bookshelfObject bookshelf
-	if err := collectionBooks.FindOne(ctx, bson.M{"owner": requestBody.Owner}).Decode(&bookshelfObject); err != nil {
-		log.Fatal(err)
+	if err := collectionBooks.FindOne(ctx, bson.M{"account": requestBody.Account}).Decode(&bookshelfObject); err != nil {
+		fmt.Println(err)
 	}
 	fmt.Print(bookshelfObject)
 	c.IndentedJSON(http.StatusOK, bookshelfObject)
@@ -65,14 +65,22 @@ func addBookToBookeeper(c * gin.Context){
 		return
 	}
 	var bookshelfObject bookshelf
-	if err := collectionBooks.FindOne(ctx, bson.M{"owner": requestBody.Owner}).Decode(&bookshelfObject); err != nil {
-		log.Fatal(err)
+	if err := collectionBooks.FindOne(ctx, bson.M{"account": requestBody.Account}).Decode(&bookshelfObject); err != nil {
+		fmt.Println(err)
+		return
 	}
-	fmt.Println(bookshelfObject.Books)
-	newCollection := append(bookshelfObject.Books, requestBody.Book)
-	fmt.Println(newCollection)
+	alreadyInCollection := containsBook(bookshelfObject.Books, requestBody.Book)
+	fmt.Println(alreadyInCollection)
+	if alreadyInCollection {
 	
-	result, err := collectionBooks.ReplaceOne(ctx, bson.M{"owner": requestBody.Owner}, bson.M{"owner": requestBody.Owner, "books":newCollection})
+		c.IndentedJSON(http.StatusForbidden, gin.H{"message":"The book is already in your collection."})
+		return
+	}
+
+	newCollection := append(bookshelfObject.Books, requestBody.Book)
+	
+	
+	result, err := collectionBooks.ReplaceOne(ctx, bson.M{"account": requestBody.Account}, bson.M{"account": requestBody.Account, "books":newCollection})
 	if err != nil {
 	fmt.Println(err)
 		c.IndentedJSON(http.StatusForbidden, gin.H{"error": err})
@@ -95,6 +103,16 @@ func addBookToBookeeper(c * gin.Context){
 func hashingPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
+}
+func containsBook(slice []string, book string) bool{
+
+	for _, b := range slice {
+	
+		if b == book{
+			return true
+		}
+	}
+	return false
 }
 func checkPassword(password, hash string) (bool) {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
@@ -124,7 +142,7 @@ func createBookShelf(c * gin.Context){
 	}
 	newBookshelf := bookshelf{
 
-		Owner: requestBody.Account,
+		Account: requestBody.Account,
 	
 	}
 	resultBookshelf, err := collectionBooks.InsertOne(ctx, newBookshelf)
@@ -150,7 +168,7 @@ func getAllAccounts(c *gin.Context){
 		var account bson.M
 		err := cur.Decode(&account)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		accounts = append(accounts, account)
 	}
@@ -194,15 +212,16 @@ func main(){
 	}else{
 		fmt.Println(".env loaded")
 	}
+	
 	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("DATABASE_URL")))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	ctx = context.Background()
 	
 	err = client.Connect(ctx)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer client.Disconnect(ctx)
 	
@@ -222,7 +241,7 @@ func main(){
 	}
 	println(indexName)
 if err != nil {
-	log.Fatalf("something went wrong: %+v", err)
+	fmt.Printf("something went wrong: %+v", err)
 }
 
 	router = gin.Default()

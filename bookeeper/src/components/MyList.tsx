@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { BsArrowRightCircleFill } from "react-icons/bs"
-import { FaPlusCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import "./css/List.css"
+import "./css/MyList.css"
 import FilterAndSortComponentProps from "./FilterAndSortComponentProps"
-import { useAlert } from "react-alert"
+import Loader from "./Loader"
 
 interface ListProps {
-	data: []
+	data: any[] | null
 	account: string | null
 }
 interface data {
@@ -25,78 +24,50 @@ interface data {
 }
 
 const List: React.FC<ListProps> = ({ data, account }) => {
-	const alert = useAlert()
 	const navigate = useNavigate()
 
 	const handleBookClick = (e: React.MouseEvent) => {
+		console.log(e.currentTarget.parentElement!.parentElement)
 		navigate(`/book/${e.currentTarget.parentElement!.parentElement!.id}`)
 	}
-	const [filtered, setFiltered] = useState<any[]>(data)
-	useEffect(() => {
-		setTimeout(
-			() => {
-				document.querySelector(".list")!.classList.add("list-loaded")
-			},
+	const [filtered, setFiltered] = useState<any[] | null>(data)
 
-			500
-		)
-		setFiltered([...data])
+	useEffect(() => {
+		if (data) {
+			setTimeout(
+				() => {
+					document
+						.querySelector(".my-list")!
+						.classList.add("my-list-loaded")
+				},
+
+				500
+			)
+			setFiltered([...data])
+		}
 
 		return () => {
-			document.querySelector(".list")?.classList.remove("list-loaded")
+			document.querySelector(".my-list")?.classList.remove("my-list-loaded")
 		}
 	}, [data])
 
-	const handleAddBook = async (e: any) => {
-		const id = e.currentTarget.parentElement.parentElement.id
-
-		const payload = {
-			account: account,
-			book: id,
-		}
-		const response = await fetch("http://localhost:8080/add-book", {
-			method: "POST",
-			headers: { "Content-type": "application/json" },
-			body: JSON.stringify(payload),
-		})
-		const message = await response.json()
-		if (response.status === 200) {
-			alert.show(
-				<div
-					style={{
-						padding: "1rem",
-						fontFamily: "Roboto",
-					}}
-				>
-					Book added successfully.
-				</div>
-			)
-			return
-		}
-		alert.show(
-			<div
-				style={{
-					color: "red",
-					padding: "1rem",
-					fontFamily: "Roboto",
-				}}
-			>
-				{message ? message.message : "An error occured."}
-			</div>
-		)
-	}
 	return (
 		<>
-			<FilterAndSortComponentProps data={data} setFiltered={setFiltered} />
+			{data && (
+				<FilterAndSortComponentProps
+					data={data}
+					setFiltered={setFiltered}
+				/>
+			)}
 			<motion.div
 				layout
 				animate={{ opacity: 1 }}
 				initial={{ opacity: 0 }}
 				exit={{ opacity: 0 }}
 				transition={{ duration: 1 }}
-				className="list"
+				className={data !== null ? "my-list" : "empty-list"}
 			>
-				{filtered.length > 0
+				{filtered && filtered.length > 0
 					? filtered.map((book: data) => (
 							<div key={book.id} id={book.id}>
 								<AnimatePresence key={book.id}>
@@ -106,11 +77,6 @@ const List: React.FC<ListProps> = ({ data, account }) => {
 										id={book.id}
 										key={book.id}
 									>
-										{/* <h3>
-										{book.volumeInfo.title.length < 25
-											? book.volumeInfo.title
-											: book.volumeInfo.title.substr(0, 20) + "..."}
-									</h3> */}
 										{book.volumeInfo.imageLinks && (
 											<img
 												src={book.volumeInfo.imageLinks.thumbnail}
@@ -122,16 +88,13 @@ const List: React.FC<ListProps> = ({ data, account }) => {
 												onClick={handleBookClick}
 												className="icons icon-arrow"
 											/>
-											<FaPlusCircle
-												onClick={handleAddBook}
-												className="icons icon-plus"
-											/>
 										</div>
 									</motion.div>
 								</AnimatePresence>
 							</div>
 					  ))
-					: data.map((book: data) => (
+					: data != null
+					? data.map((book: data) => (
 							<div key={book.id} id={book.id}>
 								<AnimatePresence>
 									<motion.div
@@ -141,12 +104,6 @@ const List: React.FC<ListProps> = ({ data, account }) => {
 										id={book.id}
 										key={book.id}
 									>
-										{/* <h3>
-										{book.volumeInfo.title.length < 25
-											? book.volumeInfo.title
-											: book.volumeInfo.title.substr(0, 20) + "..."}
-									</h3> */}
-
 										{book.volumeInfo.imageLinks && (
 											<img
 												src={book.volumeInfo.imageLinks.thumbnail}
@@ -158,12 +115,14 @@ const List: React.FC<ListProps> = ({ data, account }) => {
 												onClick={handleBookClick}
 												className="icons icon-arrow"
 											/>
-											<FaPlusCircle className="icons icon-plus" />
 										</div>
 									</motion.div>
 								</AnimatePresence>
 							</div>
-					  ))}
+					  ))
+					: data && (
+							<div className="no_data_my_bookeshelf">NO DATA FOUND</div>
+					  )}
 			</motion.div>
 		</>
 	)

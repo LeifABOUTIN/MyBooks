@@ -6,12 +6,13 @@ import "./css/Header.css"
 interface HeaderProps {
 	login: boolean
 	setLogin: (value: boolean) => void
+	setAccount: (value: string | null) => void
 }
-const Header: React.FC<HeaderProps> = ({ login, setLogin }) => {
+const Header: React.FC<HeaderProps> = ({ login, setLogin, setAccount }) => {
 	const navigate = useNavigate()
 	const handleLogout = (): void => {
 		window.localStorage.removeItem("searchData")
-
+		setAccount(null)
 		setLogin(false)
 		navigate("/")
 	}

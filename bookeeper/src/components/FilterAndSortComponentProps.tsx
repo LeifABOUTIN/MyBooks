@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "./css/FilterAndSortComponent.css"
 
 interface FilterAndSortComponentProps {
-	data: []
+	data: any[] | null
 	setFiltered: (a: any[]) => void
 }
 interface data {
@@ -31,7 +31,7 @@ const FilterAndSortComponentProps: React.FC<FilterAndSortComponentProps> = ({
 
 		setFilterInput(e.target.value)
 
-		if (filterInput) {
+		if (filterInput && data) {
 			let copy = [...data]
 			let filter: any[] | null = copy.filter((d: data) =>
 				d.volumeInfo.title.toLowerCase().includes(filterInput.toLowerCase())
