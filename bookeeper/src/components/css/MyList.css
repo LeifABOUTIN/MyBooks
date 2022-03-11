@@ -4,6 +4,13 @@
 
 	margin: auto;
 }
+.bookshelf_loader_container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 .empty-list {
 	margin: 0 auto;
 	color: white;
@@ -22,6 +29,7 @@
 	border: 1px solid white;
 	transition: all 0.5s ease-in-out;
 }
+
 .no_data_my_bookeshelf:hover {
 	background-color: var(--primary-color);
 	color: black;

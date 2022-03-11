@@ -54,7 +54,8 @@ const List: React.FC<ListProps> = ({ data, account }) => {
 			account: account,
 			book: id,
 		}
-		const response = await fetch("http://localhost:8080/add-book", {
+		const response = await fetch("http://localhost:8080/auth/add-book", {
+			credentials: "include",
 			method: "POST",
 			headers: { "Content-type": "application/json" },
 			body: JSON.stringify(payload),

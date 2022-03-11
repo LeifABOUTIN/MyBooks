@@ -35,11 +35,13 @@ interface data {
 
 const Book: React.FC<BookProps> = ({ account }) => {
 	const alert = useAlert()
-	let { id } = useParams()
+	const { id } = useParams()
+
 	const [data, setData] = useState<data | null>(null)
 	const [loaded, setLoaded] = useState<boolean>(false)
 	const url = "https://www.googleapis.com/books/v1/volumes/"
-	let navigate = useNavigate()
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		handleBookData()
 	}, [id])
@@ -75,20 +77,19 @@ const Book: React.FC<BookProps> = ({ account }) => {
 		//
 	}
 	const handleLoad = () => {
-		console.log("here")
 		document.querySelector(".container-book")!.classList.add("book-loaded")
 		setLoaded(true)
 	}
 	const handleAddBook = async () => {
-		console.log("add this book :", id)
 		const payload = {
 			account: account,
 			book: id,
 		}
-		const response = await fetch("http://localhost:8080/add-book", {
+		const response = await fetch("http://localhost:8080/auth/add-book", {
 			method: "POST",
 			headers: { "Content-type": "application/json" },
 			body: JSON.stringify(payload),
+			credentials: "include",
 		})
 		const message = await response.json()
 		if (response.status === 200) {
@@ -124,8 +125,8 @@ const Book: React.FC<BookProps> = ({ account }) => {
 					className="backBtn-book"
 					onClick={() => navigate(-1)}
 				/>
-				<FaPlusCircle className="plusBtn-book" onClick={handleAddBook} />
-
+				(
+				<FaPlusCircle className="plusBtn-book" onClick={handleAddBook} />)
 				{data && (
 					<>
 						<div className="book-data">

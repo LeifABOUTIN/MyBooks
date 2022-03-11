@@ -39,6 +39,7 @@ const Register: React.FC<RegisterProps> = ({
 			password: password,
 		}
 		const response = await fetch("http://localhost:8080/register", {
+			credentials: "include",
 			method: "POST",
 			headers: { "Content-type": "application/json" },
 			body: JSON.stringify(payload),

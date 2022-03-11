@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { transitions, positions, Provider as AlertProvider } from "react-alert"
 
@@ -22,7 +22,20 @@ const App: React.FC = ({}) => {
 		timeout: 3000,
 		transition: transitions.SCALE,
 	}
+	useEffect(() => {
+		checkUser()
+	}, [])
 
+	const checkUser = async () => {
+		let response = await fetch("http://localhost:8080/auth/me", {
+			credentials: "include",
+		})
+		if (response.status === 200) {
+			let result = await response.json()
+			setAccount(result.account)
+			setLogin(true)
+		}
+	}
 	return (
 		<>
 			<AlertProvider template={AlertTemplate} {...options}>

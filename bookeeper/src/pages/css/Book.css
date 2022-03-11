@@ -125,13 +125,16 @@
 .block-top-right-infos {
 	position: absolute;
 	top: 0%;
-	text-align: left;
+	text-align: center;
 	background-color: var(--secondary-color);
 	color: var(--background-color-light);
 	padding: 1rem 3rem 1rem 1rem;
 	border-radius: 1rem;
 	font-size: 1.25rem;
 	font-family: sans-serif;
+}
+.block-top-right-infos > h5 {
+	margin-top: 0.5rem;
 }
 .book-info-category {
 	background-color: var(--secondary-color);

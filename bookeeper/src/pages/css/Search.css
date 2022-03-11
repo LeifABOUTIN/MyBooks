@@ -1,6 +1,6 @@
 .search {
 	max-width: 1400px;
-
+	min-height: 150vh;
 	margin: auto;
 	padding-top: 10rem;
 }

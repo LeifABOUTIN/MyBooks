@@ -21,7 +21,8 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 	}
 	const grabMyBooks = async () => {
 		const payload = { account }
-		let response = await fetch("http://localhost:8080/my-books", {
+		let response = await fetch("http://localhost:8080/auth/my-books", {
+			credentials: "include",
 			method: "POST",
 			headers: {
 				"Accept": "application/json",
@@ -73,15 +74,25 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 		if (response.status === 200) {
 			const myBooks = await response.json()
 			const collectionSize = window.localStorage.getItem("CollectionSize")
-			console.log("mybooks length", myBooks.books.length)
-			console.log(collectionSize)
+
 			if (
 				collectionSize &&
+				myBooks.books &&
 				myBooks.books.length > parseInt(collectionSize)
 			) {
-				console.log("et la?")
-				console.log("plus long?", myBooks)
-				grabMyBooks()
+				const diff = myBooks.books.length % parseInt(collectionSize)
+				const diffArray = myBooks.books.slice(-diff)
+
+				const missingData = []
+				for (let b of diffArray) {
+					missingData.push(await grabBookFromId(b))
+				}
+				const upadatedCollection = [...o, ...missingData]
+				setData(upadatedCollection)
+				window.localStorage.setItem(
+					"myBooksSaved",
+					JSON.stringify(upadatedCollection)
+				)
 			} else {
 				setData(o)
 			}
@@ -89,7 +100,8 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 	}
 	useEffect(() => {
 		let d = window.localStorage.getItem("myBooksSaved")
-		if (d) {
+
+		if (!data && d) {
 			const object: object[] = JSON.parse(d)
 			checkingSize(object)
 		} else if (account) {
@@ -115,7 +127,11 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 	}, [login])
 	return (
 		<>
-			{!data && <Loader />}
+			{!data && (
+				<div className="bookshelf_loader_container">
+					<Loader />
+				</div>
+			)}
 			<div className="container_bookshelf">
 				<h1 className="bookshelf_title">
 					<span>Hi</span> <span></span>

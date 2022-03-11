@@ -7,7 +7,11 @@ import (
 	"os"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+
+	// "github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -20,6 +24,7 @@ import (
 
 
 var router *gin.Engine
+// var validate *validator.Validate
 
 var ctx context.Context
 var collectionAccounts *mongo.Collection
@@ -121,10 +126,16 @@ func checkPassword(password, hash string) (bool) {
 func createBookShelf(c * gin.Context){
 	var requestBody accountBody
 
+
 	if err := c.BindJSON(&requestBody); err != nil {
 		println(err)
 		return
 	}
+	// validateErr := validate.Struct(requestBody)
+	// if validateErr != nil{
+	// 	c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Error account, probably duplicated."})
+	// }
+	
 	
 	hash, _ := hashingPassword(requestBody.Password)
 	requestBody.Password = hash
@@ -140,17 +151,24 @@ func createBookShelf(c * gin.Context){
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Account already taken.", "error": err.Error(), "account": requestBody.Account})
 		return
 	}
+	session := sessions.Default(c)
+
+
+		session.Set("bookeeperUser", requestBody.Account)
+		fmt.Println("Session saved for", requestBody.Account, " after sign-up.")
+		session.Save()
+	
 	newBookshelf := bookshelf{
 
 		Account: requestBody.Account,
 	
 	}
-	resultBookshelf, err := collectionBooks.InsertOne(ctx, newBookshelf)
-	if err != nil {
+	_, collecionError := collectionBooks.InsertOne(ctx, newBookshelf)
+	if collecionError != nil {
 		c.IndentedJSON(http.StatusForbidden, gin.H{"message": "bookshelf not created"})
 		return
 	}
-	println(resultBookshelf)
+
 	c.IndentedJSON(http.StatusOK, gin.H{"account": requestBody.Account})
 	
 
@@ -177,6 +195,7 @@ func getAllAccounts(c *gin.Context){
 	
 }
 func loginToBookeeper(c* gin.Context){
+
 	var requestBody accountLogin
 
 	if err := c.BindJSON(&requestBody); err != nil {
@@ -199,12 +218,39 @@ func loginToBookeeper(c* gin.Context){
 		return 
 	}
 	
-	// session := sessions.Default(c)
-	// session.Set("bookeeperCookie", "jesuisLEcookie?!")
-	// session.Save()
-	c.IndentedJSON(http.StatusOK, gin.H{"account":account.Account, "token": "#TuesBienLogaMonApplicaTionGoJefEraideLasecuPlusT4rd!"})
-}
+		session := sessions.Default(c)
 
+		session.Set("bookeeperUser", account.Account)
+		session.Save()
+		fmt.Println("Session saved for", account.Account, " after signIn.")
+	
+
+	c.IndentedJSON(http.StatusOK, gin.H{"account":account.Account, "token": "#TuesBienLogaMonApplicaTionGoJefEraideLasecuPlusT4rd!"})
+	
+
+
+}
+func Authentication() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Println("Authentication")
+					session := sessions.Default(c)
+					v := session.Get("bookeeperUser")
+					
+					if v == nil {
+						fmt.Println("v == nil")
+						c.JSON(http.StatusNotFound, gin.H{"message": "unauthorized",})
+						c.Abort()
+					}
+				}
+		}
+func logoutBookeeper(c *gin.Context) {
+			session := sessions.Default(c)
+			session.Clear()
+			session.Save()
+			c.JSON(http.StatusOK, gin.H{	"message": "User Sign out successfully"})
+		
+		
+}
 func main(){
 	err := godotenv.Load(".env")
 	if err != nil {	
@@ -229,6 +275,8 @@ func main(){
 
 	collectionAccounts = client.Database("Bookshelf").Collection("accounts")
 	collectionBooks = client.Database("Bookshelf").Collection("Books")
+	// validate = validator.New()
+
 	indexOptions := options.Index().SetUnique(true)
 	indexKeys := bsonx.MDoc{"account": bsonx.Int32(-1),}
 	accountIndexModel := mongo.IndexModel{Options: indexOptions, Keys: indexKeys}
@@ -245,16 +293,34 @@ if err != nil {
 }
 
 	router = gin.Default()
-	router.Use(cors.Default())
+	store := cookie.NewStore([]byte("secret"))
+	router.Use(sessions.Sessions("mysession", store))
+	config := cors.DefaultConfig()
+	config.AllowCredentials = true
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	router.Use(cors.New(config))
 	// cookie_store := cookie.NewStore([]byte("bookEEperCookie"))
   // router.Use(sessions.Sessions("session",cookie_store))
-	router.GET("/bookshelves", getAllAccounts)
-	router.POST("/my-books", getMyBookshelves)
+
 	router.POST("/login", loginToBookeeper)
 	router.POST("/register", createBookShelf)
-	router.POST("/add-book", addBookToBookeeper)
+	router.GET("/logout", logoutBookeeper)
+	
+	auth := router.Group("/auth")
+	auth.Use(Authentication())
+	{	
+		auth.GET("/bookshelves", getAllAccounts)
+		auth.POST("/my-books", getMyBookshelves)
+		auth.POST("/add-book", addBookToBookeeper)
+	
+		auth.GET("/me", func(c *gin.Context) {
+			session := sessions.Default(c)
+			v := session.Get("bookeeperUser")
+			c.IndentedJSON(200, gin.H{ "message": "Everything is ok", "account":  v.(string)})
+		})
 	router.Run(os.Getenv("PORT"))
 	fmt.Println("DB connected & Server Listening on port 8080")
+	}
 
  	
 }

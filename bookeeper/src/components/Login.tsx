@@ -27,7 +27,10 @@ const Login: React.FC<LoginProps> = ({ setLogin, setAccount, account }) => {
 		}
 		const response = await fetch("http://localhost:8080/login", {
 			method: "POST",
-			headers: { "Content-type": "application/json" },
+			headers: {
+				"Content-type": "application/json",
+			},
+			credentials: "include",
 			body: JSON.stringify(payload),
 		})
 
