@@ -18,7 +18,9 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin, setAccount }) => {
 		setAccount(null)
 		setLogin(false)
 		navigate("/")
-		fetch("http://localhost:8080/logout")
+		fetch("http://localhost:8080/logout", {
+			credentials: "include",
+		})
 	}
 	const handleActive = (e: React.MouseEvent): void => {
 		if (!e.currentTarget.classList.contains("active")) {
@@ -29,16 +31,7 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin, setAccount }) => {
 			e.currentTarget.classList.add("active")
 		}
 	}
-	const testIt = async () => {
-		let r = await fetch("http://localhost:8080/auth/me", {
-			credentials: "include",
-			headers: {
-				"Content-type": "application/json",
-			},
-		})
-		let d = await r.json()
-		console.log(d)
-	}
+
 	return (
 		<header>
 			<nav>
@@ -79,7 +72,6 @@ const Header: React.FC<HeaderProps> = ({ login, setLogin, setAccount }) => {
 					)}
 				</ul>
 			</nav>
-			<button onClick={testIt}>test</button>
 		</header>
 	)
 }

@@ -32,8 +32,12 @@ const App: React.FC = ({}) => {
 		})
 		if (response.status === 200) {
 			let result = await response.json()
+			console.log(result)
 			setAccount(result.account)
 			setLogin(true)
+		} else {
+			setAccount(null)
+			setLogin(false)
 		}
 	}
 	return (

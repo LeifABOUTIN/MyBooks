@@ -5,10 +5,8 @@ import { CgPlayBackwards } from "react-icons/cg"
 import { gsap } from "gsap"
 
 interface homepageProps {}
-
+let TL: gsap.core.Timeline
 const Homepage: React.FC<homepageProps> = ({}) => {
-	let TL: gsap.core.Timeline
-
 	useEffect(() => {
 		let title = document.querySelector(".homepage_title") as HTMLElement
 		let header = document.querySelector("header") as HTMLElement

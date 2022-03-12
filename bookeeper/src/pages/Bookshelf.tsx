@@ -29,9 +29,9 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 			},
 			body: JSON.stringify(payload),
 		})
+		const myBooks = await response.json()
 
-		if (response.status === 200) {
-			const myBooks = await response.json()
+		if (response.status === 200 && myBooks.book.length > 0) {
 			const myBooksData = []
 			// setCollectionSize(myBooksData.length)
 			window.localStorage.setItem(
@@ -63,7 +63,8 @@ const Bookshelf: React.FC<BookshelfProps> = ({ account, login }) => {
 	}
 	const checkingSize = async (o: object[]) => {
 		const payload = { account }
-		let response = await fetch("http://localhost:8080/my-books", {
+		let response = await fetch("http://localhost:8080/auth/my-books", {
+			credentials: "include",
 			method: "POST",
 			headers: {
 				"Accept": "application/json",
